@@ -26,34 +26,33 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## Componentes Principais
+## Main Components
 
 1. HomePageComponent
-Apresenta uma visão geral do aplicativo, com links para login e cadastro.
-Utiliza animações de entrada para melhorar a experiência do usuário.
+Presents an overview of the application, with links for login and registration.
+Uses input animations to improve user experience.
 
 2. LoginPageComponent
-Formulário para login de usuários.
-Autenticação simulada com o AuthService.
+User login form.
+Simulated authentication with AuthService.
 
 3. RegisterPageComponent
-Formulário para registro de novos usuários.
-Permite o cadastro de clientes e gerentes.
+Form for registering new users.
+Allows the registration of customers and managers.
 
 4. ProductListPageComponent
-Exibe a lista de produtos para clientes.
-Inclui paginação e busca para facilitar a navegação pelos produtos.
+Displays the list of products for customers.
+Includes pagination and search to facilitate product navigation.
 
 5. DashboardPageComponent
-Painel de gerenciamento de produtos acessível apenas a gerentes.
-Funcionalidades para adicionar, editar e excluir produtos.
-Inclui feedback visual ao excluir produtos com atualização instantânea.
+Product management dashboard accessible only to managers.
+Functionality to add, edit and delete products.
+Includes visual feedback when deleting products with instant update.
 
-## Serviços e Guardas
+## Services and Guards
 
-AuthService: Gerencia o estado de autenticação e simula o login e registro de usuários.
+AuthService: Manages the authentication state and simulates user login and registration.
 
-ProductService: Gerencia a lista de produtos e operações de CRUD (simuladas).
+ProductService: Manages the list of products and CRUD (simulated) operations.
 
-AuthGuard: Protege o acesso ao DashboardPageComponent, permitindo acesso apenas a usuários autenticados como gerentes.
-
+AuthGuard: Protects access to the DashboardPageComponent, allowing access only to users authenticated as managers.

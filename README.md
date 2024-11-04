@@ -49,7 +49,7 @@ Painel de gerenciamento de produtos acessível apenas a gerentes.
 Funcionalidades para adicionar, editar e excluir produtos.
 Inclui feedback visual ao excluir produtos com atualização instantânea.
 
-##Serviços e Guardas
+## Serviços e Guardas
 
 AuthService: Gerencia o estado de autenticação e simula o login e registro de usuários.
 

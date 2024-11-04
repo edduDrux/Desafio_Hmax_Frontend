@@ -1,0 +1,109 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #89bdf9, #e3efff);
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 1s ease;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    color: #000000;
+    max-width: 600px;
+    padding: 25px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    animation: zoomIn 1s ease;
+    border-top: 4px solid #1a73e8;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button[mat-raised-button] {
+    margin-top: 10px;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.6);
+    }
+  }
+
+  .product-list {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .product-item {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: zoomIn 0.5s ease;
+    text-align: left;
+    border-left: 4px solid #1a73e8;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #000000;
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 5px 0;
+      color: #000000;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 10px;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+
+    button[color="warn"] {
+      background-color: rgba(255, 82, 82, 0.1);
+      color: #ff5252;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}

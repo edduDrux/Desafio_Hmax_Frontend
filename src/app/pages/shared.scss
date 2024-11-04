@@ -1,0 +1,25 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+  
+    mat-form-field {
+      width: 100%;
+      margin-right: 1rem;
+    }
+  
+    button {
+      min-width: 50px;
+    }
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  
+    mat-paginator {
+      max-width: 100%;
+    }
+  }
+  

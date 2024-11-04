@@ -1,0 +1,61 @@
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  background: #f4f6f8;
+  text-align: center;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #1e88e5;
+    margin-bottom: 1.5rem;
+    animation: slideIn 0.8s ease;
+  }
+
+  form {
+    width: 100%;
+    max-width: 360px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideIn 1s ease;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #1e88e5;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      background-color: #1565c0;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .error-message {
+    color: #e53935;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+}
+
+@keyframes slideIn {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}

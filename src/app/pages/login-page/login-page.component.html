@@ -1,0 +1,22 @@
+<div class="login-page">
+  <h1 class="slide-in">Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="slide-in">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Entrar</button>
+
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
+
+  <p class="register-link">
+    Não tem uma conta? <a routerLink="/register">Cadastre-se</a>
+  </p>
+</div>

@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../models/product.model';
-import { CommonModule } from '@angular/common'; // Necessário para *ngFor e pipes como currency
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-list-page',
@@ -15,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,        
     MatCardModule,       
     MatButtonModule,     
-    MatIconModule        
+    MatIconModule,     
+    HttpClientModule
   ]
 })
 export class ProductListPageComponent implements OnInit {
@@ -23,9 +25,13 @@ export class ProductListPageComponent implements OnInit {
 
   constructor(@Inject(ProductService) private productService: ProductService) {}
 
+  trackById(index: number, item: any): number {
+    return item.id;
+  }
+
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
+    this.productService.getProducts().subscribe(response => {
+      this.products = response.data;
     });
   }
 }

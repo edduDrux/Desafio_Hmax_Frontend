@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-home-page',
@@ -9,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./home-page.component.scss'],
   imports: [
     RouterModule,     
+    HttpClientModule,
     MatButtonModule   
   ]
 })

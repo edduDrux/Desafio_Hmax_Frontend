@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Necessário para *ngIf
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-register-page',
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common'; // Necessário para *ngIf
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss'],
   imports: [
-    CommonModule,        // Import necessário para *ngIf
+    CommonModule,        
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,

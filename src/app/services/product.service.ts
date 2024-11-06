@@ -1,44 +1,61 @@
-
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Product } from '../pages/models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  // Produtos simulados
-  private products: Product[] = [
-    { id: '1', name: 'Produto A', description: 'Descrição do Produto A', price: 50, stock: 10, imageUrl: 'https://via.placeholder.com/150' },
-    { id: '2', name: 'Produto B', description: 'Descrição do Produto B', price: 100, stock: 5, imageUrl: 'https://via.placeholder.com/150' },
-    { id: '3', name: 'Produto C', description: 'Descrição do Produto C', price: 150, stock: 2, imageUrl: 'https://via.placeholder.com/150' },
-  ];
+  private apiUrl = 'http://localhost:3000/api';
 
-  // Obtém todos os produtos
-  getProducts(): Observable<Product[]> {
-    return of(this.products);
+  constructor(private http: HttpClient) {}
+
+  // Obtém produtos com paginação e busca
+  getProducts(page = 1, limit = 10, description?: string): Observable<{ data: Product[], total: number }> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+    if (description) {
+      params = params.set('descricao', description);
+    }
+
+    return this.http.get<{ data: Product[], total: number }>(`${this.apiUrl}/produtos`, { params }).pipe(
+      catchError(error => {
+        console.error('Erro ao obter produtos:', error);
+        throw error;
+      })
+    );
   }
 
-  // Adiciona um novo produto
+  
   addProduct(product: Product): Observable<Product> {
-    const newProduct = { ...product, id: (this.products.length + 1).toString() };
-    this.products.push(newProduct);
-    return of(newProduct);
+    return this.http.post<Product>(`${this.apiUrl}/produtos`, product).pipe(
+      catchError(error => {
+        console.error('Erro ao adicionar produto:', error);
+        throw error;
+      })
+    );
   }
 
   // Atualiza um produto existente
   updateProduct(productId: string, updatedProduct: Product): Observable<Product> {
-    const index = this.products.findIndex(p => p.id === productId);
-    if (index !== -1) {
-      this.products[index] = { ...updatedProduct, id: productId };
-      return of(this.products[index]);
-    }
-    return of(null as any);
+    return this.http.put<Product>(`${this.apiUrl}/produtos/${productId}`, updatedProduct).pipe(
+      catchError(error => {
+        console.error('Erro ao atualizar produto:', error);
+        throw error;
+      })
+    );
   }
 
   // Remove um produto
   deleteProduct(productId: string): Observable<void> {
-    this.products = this.products.filter(p => p.id !== productId);
-    return of();
+    return this.http.delete<void>(`${this.apiUrl}/produtos/${productId}`).pipe(
+      catchError(error => {
+        console.error('Erro ao remover produto:', error);
+        throw error;
+      })
+    );
   }
 }

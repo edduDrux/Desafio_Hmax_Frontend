@@ -1,55 +1,51 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../pages/models/user.model';
+import { environment } from '../../environments/environment';
+import { AuthStateService } from './auth-state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
+  private apiUrl = environment.apiUrl;
+  
+  constructor(
+    private http: HttpClient,
+    private authStateService: AuthStateService
+  ) {}
 
-  // Dados simulados para usuários registrados com `id` incluído
-  private users: User[] = [
-    { id: '1', username: 'manager', password: '123456', role: 'manager' },
-    { id: '2', username: 'client', password: '123456', role: 'client' }
-  ];
-
-  constructor() {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser));
-    }
+  register(username: string, password: string, role: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/auth/register`, { username, password, role })
+      .pipe(
+        tap(user => {
+          this.authStateService.setUser(user);
+        }),
+        catchError(error => throwError(() => new Error('Falha no registro: ' + error.message)))
+      );
   }
 
   login(username: string, password: string): Observable<User> {
-    const user = this.users.find(u => u.username === username && u.password === password);
-    if (user) {
-      this.currentUserSubject.next(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      return of(user);
-    } else {
-      return throwError(() => new Error('Credenciais inválidas'));
-    }
-  }
-
-  register(username: string, password: string, role: 'client' | 'manager'): Observable<User> {
-    const userExists = this.users.some(u => u.username === username);
-    if (userExists) {
-      return throwError(() => new Error('Usuário já existe'));
-    } else {
-      const newUser: User = { id: (this.users.length + 1).toString(), username, password, role };
-      this.users.push(newUser);
-      return of(newUser);
-    }
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/auth/login`, { username, password })
+      .pipe(
+        tap(response => {
+          const { token, user } = response;
+          this.authStateService.setUser(user);
+          localStorage.setItem('token', token);
+        }),
+        map(response => response.user),
+        catchError(error => throwError(() => new Error('Falha no login: ' + error.message)))
+      );
   }
 
   logout(): void {
-    this.currentUserSubject.next(null);
-    localStorage.removeItem('user');
+    this.authStateService.setUser(null);
+    localStorage.removeItem('token');
   }
 
   get isLoggedIn(): boolean {
-    return !!this.currentUserSubject.value;
+    return this.authStateService.isLoggedIn;
   }
 }

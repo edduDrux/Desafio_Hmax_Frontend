@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.services';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common'; // Import necessário para *ngIf
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login-page',
@@ -13,13 +15,15 @@ import { CommonModule } from '@angular/common'; // Import necessário para *ngIf
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
   imports: [
-    CommonModule,         // Necessário para *ngIf
+    CommonModule,  
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    HttpClientModule
+  ],
+  providers: [AuthService]
 })
 export class LoginPageComponent {
   loginForm: FormGroup;
@@ -41,7 +45,7 @@ export class LoginPageComponent {
       const { username, password } = this.loginForm.value;
       this.authService.login(username, password).subscribe({
         next: () => this.router.navigate(['/dashboard']),
-        error: () => this.errorMessage = 'Credenciais inválidas. Tente novamente.'
+        error: (err) => this.errorMessage = err.message || 'Erro ao fazer login. Tente novamente.'
       });
     }
   }

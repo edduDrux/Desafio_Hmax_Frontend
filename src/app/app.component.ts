@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,       
     HttpClientModule,   
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule
   ]
 })
 export class AppComponent {
